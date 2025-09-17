@@ -1,0 +1,16 @@
+services:
+  djangoapp: # name des containers
+    build: . # docker build . -t djangoapp, bildet den port
+    ports:
+      - "8000:8000" # portweiterleitung von host:container
+    env_file: .env
+    depends_on:
+      - db # der db container muss gestartet sein, bevor djangoapp gestartet wird
+
+  db: #name des containers
+    image: postgres
+    restart: on-failure #wenn es einen fehler gibt, soll er neustarten, möglich ist auch "always"
+    env_file: .env # datei, in der die umgebungsvariablen stehen, damit sie nicht im docker-compose.yml stehen#
+    ports:
+      - "5432:5432" # portweiterleitung von host:container
+    

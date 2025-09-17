@@ -1,0 +1,26 @@
+<html>
+    <head>
+        <h1>Patienten anzeigen</h1>
+    </head>
+    <body>
+        <hr />
+        {% for patient in patients %} <!--2 mal "{" um etwas auszugeben-->
+            <div>
+                <p> First Name: {{ patient.first_name }} </p>
+                <p> Last Name:{{ patient.last_name }} </p>
+                <p> Birtdate: {{ patient.birthday }} </p>
+                <p> SVNR: {{patient.svnr}} </p>
+                <button style="background-color:cornflowerblue;">
+                    <a href="/patients/edit/{{patient.id}}">Edit</a>
+                </button>
+                <button style ="background-color: tomato;">
+                    <a href="/patients/delete/{{patient.id}}">Delete</a>
+                </button>
+            </div>
+            <hr/>
+        {% endfor %}
+        <button style ="background-color: rgb(186, 230, 176);">
+            <a href = "/patients/add/">Add Patients</a>
+        </button>
+    </body>
+</html>
