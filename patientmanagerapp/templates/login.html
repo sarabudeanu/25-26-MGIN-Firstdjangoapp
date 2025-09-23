@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div>
+    <form method="post">
+        {% csrf_token %} <!--#Damit keiner die Requests fälscht-->
+        <input type="text" name="username" placeholder="Username"/>
+        <input type="password" name="password" placeholder="Password"/>
+        <input type="submit" value="Login"/>
+    </form>
+</div>
+
+<div> {{ login_status }} </div>
+
+{% endblock content %}

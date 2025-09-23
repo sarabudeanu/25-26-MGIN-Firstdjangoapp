@@ -1,6 +1,7 @@
 from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from patientmanagerapp.models import Patient
+from django.contrib.auth import authenticate, login, logout
 
 # Create your views here.
 
@@ -55,3 +56,22 @@ def delete_patient(request: HttpRequest,id:int):
     Patient.objects.filter(id=id).delete()
 
     return render(request,"listpatients.html",context={"patients":Patient.objects.all()})
+
+def perform_login(request:HttpRequest):
+
+    login_status = ""
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        
+        user = authenticate(request, username=username, password=password)
+
+        if user is not None:
+            login(request,user)
+            login_status = "SUCCESSFULL"
+        else:
+            #user is None
+            login_status = "FAILED"
+
+
+    return render(request,"login.html", context={"login_status":login_status})

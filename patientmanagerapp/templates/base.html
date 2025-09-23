@@ -1,0 +1,18 @@
+<html>
+    <head>
+        <title>First Django App</title>
+        <link rel="stylesheet" href="/static/style.css"/>
+    </head>
+    <body>
+        <nav>
+            <span class="menubutton">
+                <a href="/patients/">Alle Patienten anzeigen</a>
+            </span>
+            <span class="menubutton">
+                <a href="/patients/add">Neue Patienten hinzufügen</a>
+            </span>
+        </nav>
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>

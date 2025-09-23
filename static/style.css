@@ -1,0 +1,10 @@
+body{
+    font-family:'Times New Roman';
+}
+.menubutton{
+    border: 1PX solid RED;
+    border-radius: 5px;
+    padding:5px;
+    margin: 3px;
+    background-color: maroon;
+}
