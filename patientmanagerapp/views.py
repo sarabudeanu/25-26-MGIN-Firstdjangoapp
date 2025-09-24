@@ -2,6 +2,7 @@ from django.http import HttpResponse, HttpRequest
 from django.shortcuts import render, redirect
 from patientmanagerapp.models import Patient
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import AbstractUser
 
 # Create your views here.
 
@@ -10,13 +11,16 @@ def helloworld_view(request: HttpRequest):
 
 
 def add_patient(request: HttpRequest):
+    #TODO Check if user is logged in
+    print(f"is user authenticated: {request.user.is_active}")
+    print(f"is user a staff member: {request.user.is_staff}")
 
-    # todo: Check SVNR
+
+    #TODO Check SVNR
     isSVNRValid = True
 
-    if (request.method == "POST"):
+    if request.method == "POST" and request.user.is_staff:
 
-        #print()
         Patient.objects.create(
             first_name = request.POST.get("firstname"),
             last_name = request.POST["lastname"],
@@ -37,7 +41,7 @@ def list_patients(request:HttpRequest):
 
 def edit_patient(request: HttpRequest,id:int):
 
-    if request.method == "POST":
+    if request.method == "POST" and request.user.is_staff:
         Patient.objects.filter(id=id).update(
             first_name=request.POST["firstname"],
             last_name=request.POST["lastname"],
@@ -64,7 +68,7 @@ def perform_login(request:HttpRequest):
         username = request.POST.get("username")
         password = request.POST.get("password")
         
-        user = authenticate(request, username=username, password=password)
+        user : AbstractUser | None = authenticate(request, username=username, password=password)
 
         if user is not None:
             login(request,user)
@@ -75,3 +79,7 @@ def perform_login(request:HttpRequest):
 
 
     return render(request,"login.html", context={"login_status":login_status})
+
+def perform_logout(request:HttpRequest):
+    logout(request)
+    return redirect("/login/")

@@ -26,5 +26,6 @@ urlpatterns = [
     path('patients/', pmapp_view.list_patients),
     path('patients/edit/<int:id>', pmapp_view.edit_patient),
     path('patients/delete/<int:id>', pmapp_view.delete_patient),
-    path('login/', pmapp_view.perform_login)
+    path('login/', pmapp_view.perform_login),
+    path('logout/', pmapp_view.perform_logout)
 ]

@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'patientmanagerapp'
 ]
  
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -74,7 +75,7 @@ WSGI_APPLICATION = 'patientmanager.wsgi.application'
  
 def inferDatabaseConfiguartion():
 
-    #TODO chech if program runs in a container
+    #TODO check if program runs in a container
     if "POSTGRES_HOST" in os.environ:
         return {
             'ENGINE': 'django.db.backends.postgresql',
